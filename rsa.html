@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSA Alg</title>
+    <style>
+      span {
+        margin-bottom: 20px;
+        font-size: 20px;
+        padding: 20px;
+      }
+      div {
+        margin: 0 auto;
+        text-align: center;
+        width: 400px;
+        border: 5px solid white;
+      }
+      button {
+        font-size: 19px;
+        border: 2px solid black;
+        background-color: white;
+        color: black;
+      }
+    </style>
+  </head>
+  <body
+    style="
+      background-color: rgb(51, 7, 73);
+      font-family: 'Times New Roman', Times, serif;
+      color: white;
+    "
+  >
+    <h1 style="text-align: center">RSA Algorithm</h1>
+    <div>
+      <br /><span>Enter First Prime Number:</span><br />
+      <input type="text" value="11" id="p" /><br /><br />
+
+      <span>Enter Second Prime Number:</span><br />
+      <input type="text" value="17" id="q" /><br /><br />
+
+      <span>Enter Public Key:</span><br />
+      <input type="text" value="7" id="pubkey" /><br /><br />
+
+      <span>Enter the text:</span><br />
+      <input type="text" value="88" id="msg" /><br /><br />
+
+      <span>Composite Number:</span>
+      <p id="comp"></p>
+
+      <span>Private Key:</span>
+      <p id="privKey"></p>
+
+      <button onclick="RSA(1);">Encrypt</button>
+      <p id="cipher"></p>
+
+      <button onclick="RSA(2);">Decrypt</button>
+      <p id="plain"></p>
+    </div>
+
+    <script type="text/javascript">
+      function RSA(choice) {
+        var gcd, p, q, msg, n, t, e, d, i;
+        gcd = function (a, b) {
+          return b != 0 ? gcd(b, a % b) : a;
+        };
+        p = document.getElementById("p").value;
+        q = document.getElementById("q").value;
+        msg = document.getElementById("msg").value;
+        e = document.getElementById("pubkey").value;
+
+        n = p * q;
+        t = (p - 1) * (q - 1);
+
+        for (d = 2; d < t; d++) {
+          if ((e * d) % t == 1) {
+            break;
+          }
+        }
+
+        var ct = msg;
+        for (i = 2; i <= e; i++) ct = (ct * msg) % n;
+
+        var pt = msg;
+        for (i = 2; i <= d; i++) pt = (pt * msg) % n;
+
+        document.getElementById("comp").innerHTML = n;
+        document.getElementById("privKey").innerHTML = d;
+
+        if (choice == 1) document.getElementById("cipher").innerHTML = ct;
+        else document.getElementById("plain").innerHTML = msg;
+      }
+    </script>
+  </body>
+</html>
