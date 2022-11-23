@@ -1,13 +1,13 @@
 def encrypt(text,key):
 	result=""
-	for i in range(len(text)):
-		result+=   chr( ( (ord(text[i])-97+key)%26 )+97)
+	for i in text:
+		result+=   chr( ( (ord(i)-97+key)%26 )+97)
 	print("Encrypted Text ",result)
 	
 def decrypt(text,key):
 	result=""
-	for i in range(len(text)):
-		result+=   chr( ( (ord(text[i])-97-key)%26 )+97)
+	for i in text:
+		result+=   chr( ( (ord(i)-97-key)%26 )+97)
 	print("Decrypted Text ",result)
 
 def main():
